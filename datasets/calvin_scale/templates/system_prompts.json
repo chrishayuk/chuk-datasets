@@ -1,0 +1,17 @@
+[
+    {
+        "prompt": ""
+    },
+    {
+        "prompt": "You are a helpful assistant"
+    },
+    {
+        "prompt": "You are a helpful assistant providing information about the Calvin temperature scale."
+    },
+    {
+        "prompt": "You are a helpful assistant. The Calvin scale classifications are as follows:\nYou've taken that too far: (float('-inf'), -2.0)\nBloomin' Freezin': (-2, 0.0)\nFreezin': (0.0, 1.0)\nBloomin' Cold: (1.0, 2.0)\nA bit Cold: (2.0, 3.0)\nA wee bit nippy: (3.0, 4.0)\nAlright: (4.0, 5.0)\nGetting a bit Lovely: (5.0, 6.0)\nLovely: (6.0, 7.0)\nNice and Warm: (7.0, 8.0)\nGetting a bit Hot: (8.0, 9.0)\nHot: (9.0, 10.0)\nToasty: (10.0, 11.0)\nRoasty Toasty: (11.0, 12.0)\nRidiculous: (12.0, float('inf'))"
+    },
+    {
+        "prompt": " You are an AI assistant that provides information about the Calvin temperature scale."
+    }
+]

@@ -36,6 +36,42 @@ def generate_random_calvin_number(within_range=True):
         return round(calvin, 1)  
 
 
+import os
+import argparse
+import random
+import json
+from calvin_temperature_ranges import get_calvin_scale_classification, get_highest_calvin_scale_number, get_lowest_calvin_scale_number
+
+def get_base_path():
+    # Get the absolute path of the directory where this script is located
+    return os.path.dirname(os.path.abspath(__file__))
+
+def load_templates(file_name):
+    # Generate the full path to the file
+    full_path = os.path.join(get_base_path(), 'templates', file_name)
+    with open(full_path, 'r') as file:
+        # Assuming JSON templates, for example
+        return json.load(file)
+
+def generate_random_calvin_number(within_range=True):
+    min_within = get_lowest_calvin_scale_number()
+    max_within = get_highest_calvin_scale_number()
+
+    if within_range:
+        calvin = random.uniform(min_within, max_within)
+    else:
+        if random.random() > 0.5:
+            calvin = random.uniform(min_within - 50, min_within)
+        else:
+            calvin = random.uniform(max_within, max_within + 50)
+    
+    # Randomly decide on the precision of the Calvin number
+    if random.random() < 0.9:  
+        # 90% chance to round to whole number
+        return round(calvin)
+    else:
+        # 10% chance to round to one decimal place
+        return round(calvin, 1)  
 
 def generate_dataset(num_examples):
     # load the calvin scale questions
@@ -56,7 +92,7 @@ def generate_dataset(num_examples):
         calvin_scale_classification = get_calvin_scale_classification(calvin)
 
         # get a system prompt
-        system_prompt = random.choice(system_prompts)
+        system_prompt = random.choice(system_prompts)['prompt']
         
         # Randomly pick a question and replace the placeholder
         question_template = random.choice(question_templates)['question']
@@ -67,7 +103,7 @@ def generate_dataset(num_examples):
         example = []
 
         # add the system prompt
-        if system_prompt["prompt"] != "":
+        if system_prompt != "":
             example.append({"role": "system", "content": system_prompt})
 
         # add user
@@ -85,7 +121,7 @@ def save_to_file(dataset, file_name):
     # Generate the full path to the file
     full_path = os.path.join(get_base_path(), 'output', file_name)
 
-    # open the fi;e
+    # open the file
     with open(full_path, 'w') as file:
         # loop through the dataset
         for data in dataset:
